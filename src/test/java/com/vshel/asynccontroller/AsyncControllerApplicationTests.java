@@ -9,5 +9,4 @@ class AsyncControllerApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }
