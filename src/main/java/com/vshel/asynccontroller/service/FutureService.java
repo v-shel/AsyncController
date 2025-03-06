@@ -12,21 +12,21 @@ import org.springframework.stereotype.Service;
 @Service
 @EnableAsync
 @RequiredArgsConstructor
-public class AsyncService {
+public class FutureService {
 
     private final SplittableRandom random;
 
     @Async
-    public CompletableFuture<String> getAsync() {
+    public CompletableFuture<String> getFuture(Integer number) {
         log.info("Start method: getAsync()");
         CompletableFuture<String> response = CompletableFuture.supplyAsync(() -> {
             try {
-                Thread.sleep(random.nextInt(50, 2000)); // Simulate a long operation
+                Thread.sleep(random.nextInt(50, 2000)); // Simulates a random duration operation
                 log.info("Long async operation executed.");
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
-            return "Hello, Future World!";
+            return "Future request number is: " + number;
         });
         log.info("End method: getAsync()");
         return response;

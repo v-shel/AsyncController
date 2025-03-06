@@ -15,15 +15,15 @@ public class DeferredService {
 
     private final SplittableRandom random;
 
-    public DeferredResult<ResponseEntity<String>> getDeferred() {
+    public DeferredResult<ResponseEntity<String>> getDeferred(Integer number) {
         log.info("Start method: getDeferred()");
         DeferredResult<ResponseEntity<String>> deferredResult = new DeferredResult<>(5000L);
 
         Executors.newSingleThreadExecutor().submit(() -> {
             try {
-                Thread.sleep(random.nextInt(50, 2000)); // Simulate a long operation
+                Thread.sleep(random.nextInt(50, 2000)); // Simulates a random duration operation
                 log.info("Long deferred operation executed.");
-                deferredResult.setResult(ResponseEntity.ok("Deferred Response!"));
+                deferredResult.setResult(ResponseEntity.ok("Deferred request number is: " + number));
             } catch (Exception ex) {
                 deferredResult.setErrorResult(ResponseEntity.status(500).body(ex.getMessage()));
                 if (!Thread.interrupted()) {
